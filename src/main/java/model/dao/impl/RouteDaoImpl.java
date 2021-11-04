@@ -1,10 +1,8 @@
 package model.dao.impl;
 
 import lombok.var;
-import model.DataSourceManager;
 import model.dao.RouteDao;
 import model.entity.Airplane;
-import model.entity.AirplaneRoute;
 import model.entity.Route;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +17,7 @@ import java.util.stream.Collectors;
 import static model.dao.util.RouteUtil.checkRouteExist;
 
 public class RouteDaoImpl  extends DefaultDaoImpl<Route> implements RouteDao {
-    private final static Logger logger= LoggerFactory.getLogger(RouteDaoImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RouteDaoImpl.class);
     public static final String INSERT = "INSERT INTO route (routeId,departure,arrival ) values (SEQ_ROUTE.nextval, ? ,?)";
     public static final String UPDATE = "UPDATE route SET departure =?,arrival = ? where routeId = ? ";
     public static final String DELETE = "DELETE FROM route WHERE routeId = ?";
@@ -42,7 +40,7 @@ public class RouteDaoImpl  extends DefaultDaoImpl<Route> implements RouteDao {
             preparedStatement.setString(1, item.getDeparture());
         preparedStatement.setString(2, item.getArrival());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -53,7 +51,7 @@ public class RouteDaoImpl  extends DefaultDaoImpl<Route> implements RouteDao {
             preparedStatement.setString(1, item.getDeparture());
             preparedStatement.setString(2, item.getArrival());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -63,7 +61,7 @@ public class RouteDaoImpl  extends DefaultDaoImpl<Route> implements RouteDao {
         try {
             preparedStatement.setInt(1, item.getRouteId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -81,7 +79,7 @@ public class RouteDaoImpl  extends DefaultDaoImpl<Route> implements RouteDao {
                 route.getAirplanes().add(airplane);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         return routes.get(0);
     }
@@ -99,7 +97,7 @@ public class RouteDaoImpl  extends DefaultDaoImpl<Route> implements RouteDao {
                 route.getAirplanes().add(airplane);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         return items;
     }

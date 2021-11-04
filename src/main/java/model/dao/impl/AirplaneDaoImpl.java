@@ -1,7 +1,6 @@
 package model.dao.impl;
 
 import lombok.var;
-import model.DataSourceManager;
 import model.dao.AirplaneDao;
 import model.entity.*;
 import org.slf4j.Logger;
@@ -12,12 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static model.dao.util.AirplaneUtil.checkAirplaneExist;
 
 public class AirplaneDaoImpl extends DefaultDaoImpl<Airplane> implements AirplaneDao {
-    private final static Logger logger= LoggerFactory.getLogger(AirplaneDaoImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(AirplaneDaoImpl.class);
     public static final String INSERT = "INSERT INTO airplane (airplaneId,serialNumber) values (seq_airplane.nextval,?)";
     public static final String UPDATE = "UPDATE airplane SET serialNumber =? where airplaneId = ? ";
     public static final String DELETE = "DELETE FROM airplane WHERE airplaneId = ?";
@@ -48,7 +46,7 @@ public class AirplaneDaoImpl extends DefaultDaoImpl<Airplane> implements Airplan
         try {
             preparedStatement.setString(1, item.getSerialNumber());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
 
     }
@@ -59,7 +57,7 @@ public class AirplaneDaoImpl extends DefaultDaoImpl<Airplane> implements Airplan
             preparedStatement.setString(1, item.getSerialNumber());
         preparedStatement.setInt(2, item.getAirplaneId());
         } catch (SQLException e) {
-           logger.error(e.getMessage(),e);
+           LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -69,7 +67,7 @@ public class AirplaneDaoImpl extends DefaultDaoImpl<Airplane> implements Airplan
         try {
             preparedStatement.setInt(1, item.getAirplaneId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -100,7 +98,7 @@ public class AirplaneDaoImpl extends DefaultDaoImpl<Airplane> implements Airplan
             if (!airplane.getRoutes().contains(route))
                 airplane.getRoutes().add(route);
             } catch (SQLException e) {
-                logger.error(e.getMessage(),e);
+                LOGGER.error(e.getMessage(),e);
             }
         }
         return airplanes.get(0);
@@ -130,7 +128,7 @@ public class AirplaneDaoImpl extends DefaultDaoImpl<Airplane> implements Airplan
                 airplane.getRoutes().add(route);
             }
         }catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         return items;
     }

@@ -1,7 +1,6 @@
 package model.dao.impl;
 
 import lombok.var;
-import model.DataSourceManager;
 import model.dao.RoleDao;
 import model.dao.util.RoleUtil;
 import model.entity.Role;
@@ -11,11 +10,10 @@ import org.slf4j.LoggerFactory;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDaoImpl extends DefaultDaoImpl<Role> implements RoleDao {
-    private final static Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RoleDaoImpl.class);
     public static final String SELECT_FROM_ROLE_BY_ID = "SELECT * FROM role where roleId = ?";
     public static final String SELECT_FROM_ROLE = "SELECT * FROM role";
     public static final String ID = "roleId";
@@ -32,7 +30,7 @@ public class RoleDaoImpl extends DefaultDaoImpl<Role> implements RoleDao {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setInt(2, item.getId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -41,7 +39,7 @@ public class RoleDaoImpl extends DefaultDaoImpl<Role> implements RoleDao {
         try {
             preparedStatement.setInt(1, item.getId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -56,7 +54,7 @@ public class RoleDaoImpl extends DefaultDaoImpl<Role> implements RoleDao {
                         .build();
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return role;
     }
@@ -68,7 +66,7 @@ public class RoleDaoImpl extends DefaultDaoImpl<Role> implements RoleDao {
                 var role = RoleUtil.checkRoleExist(rs.getInt(ID), rs.getString(NAME), items);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return items;
     }
@@ -88,7 +86,7 @@ public class RoleDaoImpl extends DefaultDaoImpl<Role> implements RoleDao {
         try {
             preparedStatement.setString(1, item.getName());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 

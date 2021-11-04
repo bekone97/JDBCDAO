@@ -14,26 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DefaultDaoImpl<T> implements DefaultDao<T>{
-        private final static Logger logger= LoggerFactory.getLogger(DefaultDaoImpl.class);
+        private final static Logger LOGGER = LoggerFactory.getLogger(DefaultDaoImpl.class);
 
     String sql = null;
 
     @Override
     public void create(T item) {
-        logger.debug("Creating "+" item:{}",item);
+        LOGGER.debug("Creating  item:{}",item);
         sql= getInsertOfItem();
         try (var connection = DataSourceManager.getInstance().getConnection() ;
              var preparedStatement = connection.prepareStatement(sql)){
             makeDaoRequestForCreate(preparedStatement, item);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            logger.error(ex.getMessage(), ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
     }
 
     @Override
     public T getItemById(int id) {
-        logger.debug("Receiving item by "+" id:{}",id);
+        LOGGER.debug("Receiving item by  id:{}",id);
      sql=getSelectByIdOfItem();
      T item = null;
         try(Connection connection = DataSourceManager.getInstance().getConnection();
@@ -42,7 +42,7 @@ public abstract class DefaultDaoImpl<T> implements DefaultDao<T>{
             ResultSet rs = preparedStatement.executeQuery();
             item = getItem(rs);
         } catch (SQLException ex) {
-            logger.error(ex.getMessage(), ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
         return item;
 
@@ -50,7 +50,7 @@ public abstract class DefaultDaoImpl<T> implements DefaultDao<T>{
 
     @Override
     public List<T> getAllItems() {
-        logger.debug("Receiving all items");
+        LOGGER.debug("Receiving all items");
         sql=getSelectOfItem();
         List<T> items = new ArrayList<>();
         try(Connection connection = DataSourceManager.getInstance().getConnection();
@@ -58,7 +58,7 @@ public abstract class DefaultDaoImpl<T> implements DefaultDao<T>{
             ResultSet rs = preparedStatement.executeQuery();
             items=getListOfItems(rs,items);
         } catch (SQLException ex) {
-            logger.error(ex.getMessage(), ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
         return items;
 
@@ -66,27 +66,27 @@ public abstract class DefaultDaoImpl<T> implements DefaultDao<T>{
     }
     @Override
     public void update(T item) {
-        logger.debug("Updating "+" item:{}",item);
+        LOGGER.debug("Updating  item:{}",item);
         sql= getUpdateOfItem();
         try (var connection = DataSourceManager.getInstance().getConnection() ;
              var preparedStatement = connection.prepareStatement(sql)){
             makeDaoRequestForUpdate(preparedStatement, item);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            logger.error(ex.getMessage(), ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
     }
 
     @Override
     public void delete(T item) {
-        logger.debug("Delete "+" item:{}",item);
+        LOGGER.debug("Delete  item:{}",item);
         sql = getDeleteOfItem();
         try (var connection = DataSourceManager.getInstance().getConnection() ;
              var preparedStatement = connection.prepareStatement(sql)){
             makeDaoRequestForDelete(preparedStatement, item);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            logger.error(ex.getMessage(), ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
     }
 

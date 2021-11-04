@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CrewDaoImpl extends DefaultDaoImpl<Crew>  implements CrewDao {
-    private final static Logger logger= LoggerFactory.getLogger(CrewDaoImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CrewDaoImpl.class);
     public static final String INSERT = "INSERT INTO CREW (crewId,name,roleId) VALUES (seq_crew.nextval,?,?)";
     public static final String UPDATE = "UPDATE crew SET name =? , roleId = ? where crewId = ? ";
     public static final String DELETE = "DELETE FROM crew WHERE crewID = ?";
@@ -39,7 +39,7 @@ public class CrewDaoImpl extends DefaultDaoImpl<Crew>  implements CrewDao {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setInt(2, item.getRoleId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -51,7 +51,7 @@ public class CrewDaoImpl extends DefaultDaoImpl<Crew>  implements CrewDao {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setInt(2, item.getRoleId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -61,7 +61,7 @@ public class CrewDaoImpl extends DefaultDaoImpl<Crew>  implements CrewDao {
         try {
             preparedStatement.setInt(1, item.getCrewId());
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -79,12 +79,12 @@ public class CrewDaoImpl extends DefaultDaoImpl<Crew>  implements CrewDao {
                 crew.getAirplanes().add(airplane);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         try {
         return crews.get(0);
         }catch (ArrayIndexOutOfBoundsException e){
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
             return null;
         }
     }
@@ -106,7 +106,7 @@ public class CrewDaoImpl extends DefaultDaoImpl<Crew>  implements CrewDao {
                 items.add(crew);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         return items;
     }

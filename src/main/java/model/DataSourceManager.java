@@ -1,18 +1,15 @@
 package model;
 
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import lombok.SneakyThrows;
-import model.dao.impl.AirplaneDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.crypto.Data;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -20,7 +17,7 @@ public class DataSourceManager {
 private static DataSourceManager instance = new DataSourceManager();
     private final Properties prop;
     private ComboPooledDataSource comboPooledDataSource;
-    private final static Logger logger= LoggerFactory.getLogger(DataSourceManager.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(DataSourceManager.class);
     public static DataSourceManager getInstance() {
 
         if (instance == null) {
@@ -35,7 +32,7 @@ private static DataSourceManager instance = new DataSourceManager();
         try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
             prop.load(input);
         } catch (IOException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
 
         comboPooledDataSource = new ComboPooledDataSource();
@@ -52,7 +49,7 @@ private static DataSourceManager instance = new DataSourceManager();
         try {
             connection = comboPooledDataSource.getConnection();
         } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
 
         return connection;
